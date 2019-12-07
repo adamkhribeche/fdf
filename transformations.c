@@ -6,22 +6,20 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 00:50:25 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/06 21:55:59 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/07 19:23:49 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*t_point     translation(t_point vect, t_point point)
+t_point     translation2(int x, int y, t_point point)
 {
 	t_point pt;
 
-	pt.x = point.x + vect.x;
-	pt.y = point.y + vect.y;
-	pt.z = point.z + vect.z;
-	pt.color = point.color;
+	pt.x = point.x + x;
+	pt.y = point.y + y;
 	return (pt);
-}*/
+}
 
 void     translation(int xt, int yt, t_map *map)
 {

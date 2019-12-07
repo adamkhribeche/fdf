@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:34:08 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 17:20:50 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/07 21:45:30 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,26 @@ typedef struct	s_point
 	int		color;
 }				t_point;
 
-typedef struct	s_isopt
+/*typedef struct	s_isopt
 {
 	int		x;
 	int		y;
 	int		color;
 }				t_isopt;
-
+*/
 typedef struct	s_map
 {
 	t_point		*tab;
 	t_mapdim	dim;
 }				t_map;
 
-typedef struct	s_isomap
+/*typedef struct	s_isomap
 {
 	t_isopt		*tab;
 	t_mapdim	dim;
 	
 }				t_isomap;
-
+*/
 /*typedef struct	s_homothetie
 {
 	t_point (*p)(int k, t_point pt);
@@ -78,7 +78,6 @@ typedef struct	s_mlxxparams
 }				t_mlxparams;
 
 /******************************************************************************/
-
 typedef struct	s_drowparams
 {
 	int zoom;
@@ -111,6 +110,8 @@ int				get_length(char *s);
 void			skip_space(char **s);
 void			skip_notspace(char **s);
 int				digitlength(int n);
+int				max(int a, int b, int c, int d);
+int				min(int a, int b, int c, int d);
 void			printmap(t_map map);
 void			*ft_memdup(void *mem, size_t size);
 t_map			dupmap(t_map map);
@@ -129,12 +130,16 @@ t_point			swap_coordinats(t_point point);
 int				put(int keycode, void *vartemp);
 //t_point			translation(t_point vect, t_point point);
 void			translation(int x, int y, t_map *map);
+t_point			translation2(int x, int y, t_point point);
 void			parallel_proj(t_mlxparams *mlxparams, t_map *map);
 //void			iso_proj(t_mlxparams *mlxparams, t_map *map);
-void			iso_proj(t_mlxparams *mlxparams, t_map *map);
+//void			iso_proj(t_mlxparams *mlxparams, t_map *map);
+void			iso_proj(t_mlxparams *mlxparams, t_map *map, int x, int y);
 //t_point			homothetie(int k, t_point point);
 void			homothetie(int k, t_map *map);
 t_point			iso(t_point point);
 void			fill_mlxparams(t_mlxparams *mlxparams);
+void			ft_get_params_to_center_isoproject(int *x, int *y, t_map *map);
+void			ft_get_params_to_center_parallelproject(int *x, int *y, t_map *map);
 
 #endif

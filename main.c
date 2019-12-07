@@ -6,13 +6,47 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 19:58:51 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 18:06:09 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/07 21:46:13 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_get_translation_param(int *x, int *y, t_map *map)
+int		max(int a, int b, int c, int d)
+{
+	int tab[4] = {a, b, c, d};
+	int i;
+	int max;
+
+	i = 1;
+	max = a;
+	while (i < 4)
+	{
+		if (tab[i] > max)
+			max = tab[i];
+		i++;
+	}
+	return (max);
+}
+int		min(int a, int b, int c, int d)
+{
+	int tab[4] = {a, b, c, d};
+	int i;
+	int min;
+
+	i = 1;
+	min = a;
+	while (i < 4)
+	{
+		printf("%d   %d\n", tab[i], tab[i - 1]);
+		if (tab[i] < min)
+			min = tab[i];
+		i++;
+	}
+	return (min);
+}
+
+void	ft_get_params_to_center_isoproject(int *x, int *y, t_map *map)
 {
 	t_point pt1;
 	t_point pt2;
@@ -21,11 +55,25 @@ void	ft_get_translation_param(int *x, int *y, t_map *map)
 
 	pt1 = iso(map->tab[0]);
 	pt2 = iso(map->tab[map->dim.length - 1]);
-	pt3 = iso(map->tab[map->dim.length * (map->dim.width - 1) + 1]);
-	pt4 = iso(map->tab[map->dim.length * map->dim.width - 1]);
+	pt3 = iso(map->tab[map->dim.length * map->dim.width - 1]);
+	pt4 = iso(map->tab[map->dim.length * (map->dim.width - 1)]);
+	*x = 400 - ((max(pt1.x, pt2.x, pt3.x, pt4.x) - min(pt1.x, pt2.x, pt3.x, pt4.x)) / 2) - min(pt1.x, pt2.x, pt3.x, pt4.x);
+	*y = 500 - ((max(pt1.y, pt2.y, pt3.y, pt4.y) - min(pt1.y, pt2.y, pt3.y, pt4.y)) / 2) - min(pt1.y, pt2.y, pt3.y, pt4.y);
+}
 
-	*y = 350 - ((pt4.y - pt1.y) / 2);
-	*x = 400 - ((pt2.x - pt3.x) / 2);
+void	ft_get_params_to_center_parallelproject(int *x, int *y, t_map *map)
+{
+	t_point pt1;
+	t_point pt2;
+	t_point pt3;
+	t_point pt4;
+
+	pt1 = map->tab[0];
+	pt2 = map->tab[map->dim.length - 1];
+	pt3 = map->tab[map->dim.length * map->dim.width - 1];
+	pt4 = map->tab[map->dim.length * (map->dim.width - 1)];
+	*x = 400 - ((max(pt1.x, pt2.x, pt3.x, pt4.x) - min(pt1.x, pt2.x, pt3.x, pt4.x)) / 2) - min(pt1.x, pt2.x, pt3.x, pt4.x);
+	*y = 400 - ((max(pt1.y, pt2.y, pt3.y, pt4.y) - min(pt1.y, pt2.y, pt3.y, pt4.y)) / 2) - min(pt1.y, pt2.y, pt3.y, pt4.y);
 }
 
 void	fdf(t_map *map)
@@ -34,10 +82,7 @@ void	fdf(t_map *map)
 	t_temp 	temp;
 	int		x;
 	int		y;
-	t_point	pt;
 
-	pt.x = 100;
-	pt.y = 0;
 	if (!(mlxparams = malloc(sizeof(*mlxparams))))
 	{
 		perror("");
@@ -47,10 +92,10 @@ void	fdf(t_map *map)
 	temp.mlxparams = mlxparams;
 	temp.map = map;
 	homothetie(20, map);
-	//translation(500, 100, map);
-	//ft_get_translation_param(&x, &y, map);
-	translation(x, y, map);
-	iso_proj(mlxparams, map);
+	ft_get_params_to_center_isoproject(&x, &y, map);
+	//ft_get_params_to_center_parallelproject(&x, &y, map);
+	//translation(x, y, map);
+	iso_proj(mlxparams, map, x, y);
 	//parallel_proj(mlxparams, map);
 	//printmap(*map);
 	mlx_key_hook(mlxparams->mlx_win, put, (void*)&temp);
@@ -61,7 +106,6 @@ int 	main(int ac, char **av)
 {
 	int		fd;
 	t_map	*map;
-//	t_map	map2;
 
 	if (!(fd = is_file_valid(ac, av)))
 		return (0);
@@ -72,9 +116,6 @@ int 	main(int ac, char **av)
 	}
 	get_map(fd, map);
 	close (fd);
-	//map2 = dupmap(map);
-	//printf("%d\n", map2.dim.length);
-	//printf("%d\n", map2.dim.width);
 	//printmap(*map);
 	fdf(map);
 	return (0);
