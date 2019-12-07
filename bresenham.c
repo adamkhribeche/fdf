@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 22:10:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/06 14:42:08 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/07 17:45:09 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_point	swap_coordinats(t_point point)
 {
 	t_point		new_pt;
-	
+
 	new_pt.x = point.y;
 	new_pt.y = point.x;
 	return (new_pt);
@@ -89,8 +89,9 @@ void    draw_in_octant1458(t_mlxparams *mlxparams, t_point p1, t_point p2)
 	i = abs(dx);
 	while (i-- >= 0)
 	{
+
 		index = mlxparams->length_img * p1.y + p1.x;
-		if (index >= 0/*&& p1.y < mlxparams.width_img && p1.x < mlxparams.length_img*/)
+		if (index >= 0  && index < 640000/*&& p1.y < mlxparams->width_img && p1.x < mlxparams->length_img && p1.x < 0 && p1.y < 0*/)
 			mlxparams->image[index] = 0xffffff;
 		if ((2 * (edx + abs(pdx))) < abs(dx))//les tests en nbr entiers est plus efficaces
 			edx += abs(dy);
@@ -129,7 +130,7 @@ void	draw_in_octant2367(t_mlxparams *mlxparams, t_point p1, t_point p2)
 	{
 		p1 = swap_coordinats(p1);
 		index = mlxparams->length_img * p1.y + p1.x;
-		if (index >= 0 /*&& p1.y < mlxparams.width_img && p1.x < mlxparams.length_img*/)
+		if (index >= 0 && index < 640000/*&& p1.y < mlxparams->width_img && p1.x < mlxparams->length_img && p1.x < 0 && p1.y < 0*/)
 			mlxparams->image[index] = 0xffffff;
 		p1 = swap_coordinats(p1);
 		if ((2 * (edx + abs(pdx))) < abs(dx))//les tests en nbr entiers est plus efficaces
@@ -157,7 +158,7 @@ void	draw_horizontal_line(t_mlxparams *mlxparams, t_point pt1, t_point pt2)
 	while (pt1.x <= pt2.x)
 	{
 		index = mlxparams->length_img * y + pt1.x;
-		if (index >= 0)
+		if (index >= 0 && index < 640000/*&& pt1.y < mlxparams->width_img && pt1.x < mlxparams->length_img && pt1.x < 0 && pt1.y < 0*/)
 			mlxparams->image[index] = 0xffffff;
 		pt1.x++;
 	}
@@ -177,7 +178,7 @@ void	draw_vertical_line(t_mlxparams *mlxparams, t_point pt1, t_point pt2)
 	{
 		//mlx_pixel_put(mlxparams.mlx_ptr, mlxparams.mlx_win, x, pt1.y, 0xffffff);
 		index = mlxparams->length_img * pt1.y + x;
-		if (index >= 0)
+		if (index >= 0 && index < 640000/*&& pt1.y < mlxparams->width_img && pt1.x < mlxparams->length_img && pt1.x < 0 && pt1.y < 0*/)
 			mlxparams->image[index] = 0xffffff;
 		pt1.y++;
 	}
@@ -200,7 +201,7 @@ void	draw_diagonal_line(t_mlxparams *mlxparams, t_point pt1, t_point pt2)
 	{
 		//mlx_pixel_put(mlxparams.mlx_ptr, mlxparams.mlx_win, pt1.x, pt1.y, 0xffffff);
 		index = mlxparams->length_img * pt1.y + pt1.x;
-		if (index >= 0)
+		if (index >= 0 && index < 640000/*&& pt1.y < mlxparams->width_img && pt1.x < mlxparams->length_img && pt1.x < 0 && pt1.y < 0*/)
 			mlxparams->image[index] = 0xffffff;
 		pt1.x += xincr;
 		pt1.y += yincr;
@@ -218,12 +219,8 @@ void    bresenham(t_mlxparams *mlxparams, t_point pt1, t_point pt2)
 	draw_trivial_line[0] = draw_horizontal_line;
 	draw_trivial_line[1] = draw_vertical_line;
 	draw_trivial_line[2] = draw_diagonal_line;
-	//pt1 = translation((t_point){250, 250}, pt1);
-	//pt2 = translation((t_point){250, 250}, pt2);
-	//printf("pt1.x = %d;\tpt1.y = %d;\npt2.x = %d;\tpt2.y = %d;\n", pt1.x, pt1.y, pt2.x, pt2.y);
 	dx = pt2.x - pt1.x;
 	dy = pt2.y - pt1.y;
-//	printf("dx = %d;\tdy = %d;\n-------------------\n", dx, dy);
 	if (dx == 0 && dy == 0)
 	{
 		index = mlxparams->length_img * pt1.y + pt1.x;
@@ -237,10 +234,6 @@ void    bresenham(t_mlxparams *mlxparams, t_point pt1, t_point pt2)
 		if (abs(dx) > abs(dy))
 			draw_in_octant1458(mlxparams, pt1, pt2);
 		else
-		{
-//			printf("hi\n");
 			draw_in_octant2367(mlxparams, pt1, pt2);
-//			printf("hi\n");
-		}
 	}
 }

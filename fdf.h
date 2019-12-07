@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:34:08 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 01:37:46 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/07 17:20:50 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,18 +79,18 @@ typedef struct	s_mlxxparams
 
 /******************************************************************************/
 
-typedef struct s_drowparams
+typedef struct	s_drowparams
 {
-	    int zoom;
-		    int translation;
-			    int altitude_z;
-}               t_drowparams;
+	int zoom;
+	int translation;
+	int altitude_z;
+}				t_drowparams;
 
 typedef struct s_vars
 {
-	    t_mlxparams     *mlxparams;
-		    t_map           *map;
-			    t_drowparams    *drawparams;
+	t_mlxparams     *mlxparams;
+	t_map           *map;
+	t_drowparams    *drawparams;
 }               t_vars;
 
 typedef struct s_temp
@@ -100,6 +100,7 @@ typedef struct s_temp
 }				t_temp;
 
 int         put(int keycode, void *vartemp);
+void	zoom(t_map *map);
 /******************************************************************************/
 
 void			fdf(t_map *map);
@@ -125,11 +126,12 @@ int				is_vertical(int dx, int dy);
 int				is_diagonal(int dx, int dy);
 void			swap(int *a, int *b);
 t_point			swap_coordinats(t_point point);
+int				put(int keycode, void *vartemp);
 //t_point			translation(t_point vect, t_point point);
 void			translation(int x, int y, t_map *map);
-void			parallel_proj(t_mlxparams *mlxparams, t_map map);
+void			parallel_proj(t_mlxparams *mlxparams, t_map *map);
 //void			iso_proj(t_mlxparams *mlxparams, t_map *map);
-void			iso_proj(t_mlxparams *mlxparams, t_map map);
+void			iso_proj(t_mlxparams *mlxparams, t_map *map);
 //t_point			homothetie(int k, t_point point);
 void			homothetie(int k, t_map *map);
 t_point			iso(t_point point);

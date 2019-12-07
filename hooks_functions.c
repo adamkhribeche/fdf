@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 15:16:52 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/07 01:38:00 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/07 17:22:43 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int put(int keycode, void *temp1)
 	{
 		zoom(map);
 		ft_memset(temp->mlxparams->image, 0x0000, temp->mlxparams->length_img * temp->mlxparams->width_img * 4);
-		parallel_proj(temp->mlxparams, *map);
+		parallel_proj(temp->mlxparams, map);
 	}
 	return (0);
 }
@@ -52,6 +52,7 @@ int put(int keycode, void *temp1)
 
 void	ft_zoomout(t_mlxparams mlxparams, t_map *map, t_drowparams *param);
 
+/*
 void	ft_move_left(t_mlxparams *mlxparams, t_map *map, t_drowparams *param)
 {
 	//printf("start.\n");
@@ -64,15 +65,14 @@ void	ft_move_left(t_mlxparams *mlxparams, t_map *map, t_drowparams *param)
 	while (index < map_len)
 	{
 		//printf("befor [maplen = %d] [index = %d] [x = %d]\n", map_len, index, map->tab[index].x);
-		map->tab[index] = translation((t_point){-1, 0, 0}, map->tab[index]);
+		map->tab[index] = translation(0, 0, *map->tab[index]);
 
 		//printf("after [maplen = %d] [index = %d] [x = %d]\n", map_len, index, map->tab[index].x);
 		//		printf("map_len == %d;\n", map_len);
 		index++;
 	}
-	parallel_proj(mlxparams, map);
+	parallel_proj(mlxparams, *map);
 }
-
 int put(int keycode, void *vartemp)
 {
 	t_vars *vars = (t_vars*)vartemp;
@@ -85,7 +85,7 @@ int put(int keycode, void *vartemp)
 		ft_move_left(vars->mlxparams, vars->map, vars->drawparams);
 	}
 	//printf("end of put;\n");
-	/*	else if (keycode == 78)
+		else if (keycode == 78)
 		ft_zoomout(*vars->mlxparams, vars->map, vars->drawparams);
 		else if (keycode == 69)
 		ft_zoomin(*vars->mlxparams, vars->map, vars->drawparams);
@@ -95,7 +95,7 @@ int put(int keycode, void *vartemp)
 		ft_move_down(mlxparams, map);
 		else if (keycode == 126)// move up
 		ft_move_up(mlxparams, map);
-		*/
+	
 	return (0);
 }
-
+*/

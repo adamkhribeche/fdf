@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:06:30 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/06 20:38:41 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/07 17:27:28 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,10 @@ void	printmap(t_map map)
 		while (count < map.dim.length)
 		{
 			ft_putnbr(map.tab[index].y);
-			ft_putstr(" ");
+			ft_putstr("   ");
 			if (digitlength(map.tab[index].y) == 2)
 				//ft_putchar(' ');
-				ft_putstr("    ");
+				ft_putstr(" ");
 			else if (digitlength(map.tab[index].y) == 1)
 				ft_putstr("  ");
 			index++;
