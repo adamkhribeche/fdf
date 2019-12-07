@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:16:24 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 16:32:08 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/07 23:36:03 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,10 @@ t_point		*get_points(int fd, int length, int width)
 	return (tab);
 }
 
-void		get_map(int fd, t_map *map)
+void		get_map(int *fd, t_map *map, char *arg)
 {
-	get_mapdim(fd, map);
-	lseek(fd, 0, SEEK_SET);
-	map->tab = get_points(fd, map->dim.length, map->dim.width);
+	get_mapdim(*fd, map);
+	close(*fd);
+	*fd = open(arg, O_RDONLY);
+	map->tab = get_points(*fd, map->dim.length, map->dim.width);
 }

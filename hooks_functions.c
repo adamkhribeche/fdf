@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 15:16:52 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/07 17:22:43 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/07 23:06:05 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_zoomin(t_mlxparams mlxparams, t_map *map, t_drowparams *param)
 {
 	int	map_len = map->dim.width * map->dim.length;
 	int	index;
+	int x;
+	int y;
 
 	//	param->zoom;
 	//	printf("zoom =%d;\n", param->zoom);
@@ -30,20 +32,21 @@ void	ft_zoomin(t_mlxparams mlxparams, t_map *map, t_drowparams *param)
 	}
 	printf("index == %d;\n", index);
 	//	printmap(*map);
-	parallel_proj(&mlxparams, map);
+	parallel_proj(&mlxparams, map, x, y);
 }
 
-int put(int keycode, void *temp1)
+int put(int keycode, void *hook_variables)
 {
-	t_temp *temp = (t_temp*)temp1;
-	t_map *map = temp->map;
+	t_hook_variables *hook_variables1 = (t_hook_variables*)hook_variables;
+	t_map *map = hook_variables1->map;
+
 	if (keycode == 53)
 		exit(0);
 	else if (keycode == 123)
 	{
 		zoom(map);
-		ft_memset(temp->mlxparams->image, 0x0000, temp->mlxparams->length_img * temp->mlxparams->width_img * 4);
-		parallel_proj(temp->mlxparams, map);
+		ft_memset(hook_variables1->mlxparams->image, 0x0000, hook_variables1->mlxparams->length_img * hook_variables1->mlxparams->width_img * 4);
+		parallel_proj(hook_variables1->mlxparams, map, hook_variables1->proj_params[1].x, hook_variables1->proj_params[1].y);
 	}
 	return (0);
 }

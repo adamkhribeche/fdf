@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:34:08 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 21:45:30 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/07 23:35:16 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,12 @@ typedef struct s_vars
 	t_drowparams    *drawparams;
 }               t_vars;
 
-typedef struct s_temp
+typedef struct s_hook_variables
 {
 	t_mlxparams	*mlxparams;
 	t_map		*map;
-}				t_temp;
+	t_point		proj_params[2];
+}				t_hook_variables;
 
 int         put(int keycode, void *vartemp);
 void	zoom(t_map *map);
@@ -104,7 +105,7 @@ void	zoom(t_map *map);
 
 void			fdf(t_map *map);
 int				is_file_valid(int nbr_of_arg, char **arg);
-void			get_map(int fd, t_map *map);
+void			get_map(int *fd, t_map *map, char *arg);
 void			get_mapdim(int fd, t_map *map);
 int				get_length(char *s);
 void			skip_space(char **s);
@@ -131,9 +132,7 @@ int				put(int keycode, void *vartemp);
 //t_point			translation(t_point vect, t_point point);
 void			translation(int x, int y, t_map *map);
 t_point			translation2(int x, int y, t_point point);
-void			parallel_proj(t_mlxparams *mlxparams, t_map *map);
-//void			iso_proj(t_mlxparams *mlxparams, t_map *map);
-//void			iso_proj(t_mlxparams *mlxparams, t_map *map);
+void			parallel_proj(t_mlxparams *mlxparams, t_map *map, int x, int y);
 void			iso_proj(t_mlxparams *mlxparams, t_map *map, int x, int y);
 //t_point			homothetie(int k, t_point point);
 void			homothetie(int k, t_map *map);

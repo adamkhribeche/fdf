@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 19:58:51 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 21:46:13 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/07 23:34:02 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		min(int a, int b, int c, int d)
 	return (min);
 }
 
-void	ft_get_params_to_center_isoproject(int *x, int *y, t_map *map)
+void	get_params_to_center_isoproject(int *x, int *y, t_map *map)
 {
 	t_point pt1;
 	t_point pt2;
@@ -58,10 +58,10 @@ void	ft_get_params_to_center_isoproject(int *x, int *y, t_map *map)
 	pt3 = iso(map->tab[map->dim.length * map->dim.width - 1]);
 	pt4 = iso(map->tab[map->dim.length * (map->dim.width - 1)]);
 	*x = 400 - ((max(pt1.x, pt2.x, pt3.x, pt4.x) - min(pt1.x, pt2.x, pt3.x, pt4.x)) / 2) - min(pt1.x, pt2.x, pt3.x, pt4.x);
-	*y = 500 - ((max(pt1.y, pt2.y, pt3.y, pt4.y) - min(pt1.y, pt2.y, pt3.y, pt4.y)) / 2) - min(pt1.y, pt2.y, pt3.y, pt4.y);
+	*y = 400 - ((max(pt1.y, pt2.y, pt3.y, pt4.y) - min(pt1.y, pt2.y, pt3.y, pt4.y)) / 2) - min(pt1.y, pt2.y, pt3.y, pt4.y);
 }
 
-void	ft_get_params_to_center_parallelproject(int *x, int *y, t_map *map)
+void	get_params_to_center_parallelproject(int *x, int *y, t_map *map)
 {
 	t_point pt1;
 	t_point pt2;
@@ -78,10 +78,8 @@ void	ft_get_params_to_center_parallelproject(int *x, int *y, t_map *map)
 
 void	fdf(t_map *map)
 {
-	t_mlxparams	*mlxparams;
-	t_temp 	temp;
-	int		x;
-	int		y;
+	t_mlxparams			*mlxparams;
+	t_hook_variables 	hook_variables;
 
 	if (!(mlxparams = malloc(sizeof(*mlxparams))))
 	{
@@ -89,16 +87,16 @@ void	fdf(t_map *map)
 		exit(0);
 	}
 	fill_mlxparams(mlxparams);
-	temp.mlxparams = mlxparams;
-	temp.map = map;
 	homothetie(20, map);
-	ft_get_params_to_center_isoproject(&x, &y, map);
-	//ft_get_params_to_center_parallelproject(&x, &y, map);
+	get_params_to_center_isoproject(&hook_variables.proj_params[0].x, &hook_variables.proj_params[0].y, map);
+	get_params_to_center_parallelproject(&hook_variables.proj_params[1].x, &hook_variables.proj_params[1].y, map);
 	//translation(x, y, map);
-	iso_proj(mlxparams, map, x, y);
-	//parallel_proj(mlxparams, map);
+	iso_proj(mlxparams, map, hook_variables.proj_params[0].x, hook_variables.proj_params[0].y);
+	//parallel_proj(mlxparams, map, hook_varibales.proj_params[1].x, hook_varibales.proj_params[1].y);
+	hook_variables.mlxparams = mlxparams;
+	hook_variables.map = map;
 	//printmap(*map);
-	mlx_key_hook(mlxparams->mlx_win, put, (void*)&temp);
+	mlx_key_hook(mlxparams->mlx_win, put, (void*)&hook_variables);
 	mlx_loop(mlxparams->mlx_ptr);
 }
 
@@ -114,7 +112,7 @@ int 	main(int ac, char **av)
 		perror("");
 		return (0);
 	}
-	get_map(fd, map);
+	get_map(&fd, map, av[1]);
 	close (fd);
 	//printmap(*map);
 	fdf(map);
