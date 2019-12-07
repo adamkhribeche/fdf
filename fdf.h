@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:34:08 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 04:21:46 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/07 23:37:20 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,12 @@ typedef struct s_vars
 			    t_drowparams    *drawparams;
 }               t_vars;
 
-typedef struct s_temp
+typedef struct s_hook_variables
 {
 	t_mlxparams	*mlxparams;
 	t_map		*map;
-}				t_temp;
+	t_point		proj_params[2];
+}				t_hook_variables;
 
 int         put(int keycode, void *vartemp);
 void    	zoomin(t_map *map);

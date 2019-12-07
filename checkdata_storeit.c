@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:16:24 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/06 13:16:43 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/07 23:37:22 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,36 @@ t_point		*get_points(int fd, int length, int width)
 	return (tab);
 }
 
+void	ft_color_points(t_map *map)
+{
+	int	i;
+	int	max_z;
+
+	max_z = 0;
+	i = 0;
+	while (i < (map->dim.length * map->dim.width))
+	{
+		if (map->tab[i].z > max_z)
+			max_z = map->tab[i].z;
+		i++;
+	}
+	i = 0;
+	while (i < (map->dim.length * map->dim.width))
+	{
+		if (map->tab[i].z > (max_z/3 * 2))
+			map->tab[i].color = 0x00990000;
+		else if (map->tab[i].z > (max_z / 3))
+			map->tab[i].color = 0x00999999;
+		else
+			map->tab[i].color = 0xffffffff;
+		i++;
+	}
+}
+
 void		get_map(int fd, t_map *map)
 {
 	get_mapdim(fd, map);
 	lseek(fd, 0, SEEK_SET);
 	map->tab = get_points(fd, map->dim.length, map->dim.width);
+	ft_color_points(map);
 }
