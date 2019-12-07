@@ -6,13 +6,13 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 19:25:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 23:37:19 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/07 23:52:38 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	parallel_proj(t_mlxparams *mlxparams, t_map map)
+void	parallel_proj(t_mlxparams *mlxparams, t_map *map, int x, int y)
 {
 	int		i;
 	int		j;
@@ -21,35 +21,37 @@ void	parallel_proj(t_mlxparams *mlxparams, t_map map)
 	int		index3;
 
 	j = 0;
-	while (j < map.dim.width - 1)
+	while (j < map->dim.width - 1)
 	{
 		i = 0;
-		while (i < map.dim.length - 1)
+		while (i < map->dim.length - 1)
 		{
-			index1 = j * map.dim.length + i;
+			index1 = j * map->dim.length + i;
 			index2 = index1 + 1;
-			index3 = index1 + map.dim.length;
-				bresenham(mlxparams, map.tab[index1], map.tab[index2]);
-				bresenham(mlxparams, map.tab[index1], map.tab[index3]);
+
+			index3 = index1 + map->dim.length;
+			bresenham(mlxparams, translation2(x, y, map->tab[index1]), translation2(x, y, map->tab[index2]));
+			bresenham(mlxparams, translation2(x, y, map->tab[index1]), translation2(x, y, map->tab[index3]));
 			i++;
 		}
-		index1 = j * map.dim.length + i;
-		index3 = index1 + map.dim.length;
-			bresenham(mlxparams, map.tab[index1], map.tab[index3]);
+		index1 = j * map->dim.length + i;
+		index3 = index1 + map->dim.length;
+		bresenham(mlxparams, translation2(x, y, map->tab[index1]), translation2(x, y, map->tab[index3]));
 		j++;
 	}
 	i = 0;
-	while (i < map.dim.length - 1)
+	while (i < map->dim.length - 1)
 	{
-		index1 = j * map.dim.length + i;
+		index1 = j * map->dim.length + i;
 		index2 = index1 + 1;
-			bresenham(mlxparams, map.tab[index1], map.tab[index2]);
+
+		bresenham(mlxparams, translation2(x, y, map->tab[index1]), translation2(x, y, map->tab[index2]));
 		i++;
 	}
 	mlx_put_image_to_window(mlxparams->mlx_ptr, mlxparams->mlx_win, mlxparams->img_ptr, 0, 0);
 }
 
-void	iso_proj(t_mlxparams *mlxparams, t_map map)
+void	iso_proj(t_mlxparams *mlxparams, t_map *map, int x, int y)
 {
 	int		i;
 	int		j;
@@ -57,32 +59,30 @@ void	iso_proj(t_mlxparams *mlxparams, t_map map)
 	int		index2;
 	int		index3;
 	
-//	homothetie(15, &map);
-//	translation(500, 100, &map);
 	j = 0;
-	while (j < map.dim.width - 1)
+	while (j < map->dim.width - 1)
 	{
 		i = 0;
-		while (i < map.dim.length - 1)
+		while (i < map->dim.length - 1)
 		{
-			index1 = j * map.dim.length + i;
+			index1 = j * map->dim.length + i;
 			index2 = index1 + 1;
-			index3 = index1 + map.dim.length;
-			bresenham(mlxparams, iso(map.tab[index1]), iso(map.tab[index2]));
-			bresenham(mlxparams, iso(map.tab[index1]), iso(map.tab[index3]));
+			index3 = index1 + map->dim.length;
+			bresenham(mlxparams, translation2(x, y, iso(map->tab[index1])), translation2(x, y, iso(map->tab[index2])));
+			bresenham(mlxparams, translation2(x, y, iso(map->tab[index1])), translation2(x, y, iso(map->tab[index3])));
 			i++;
 		}
-		index1 = j * map.dim.length + i;
-		index3 = index1 + map.dim.length;
-		bresenham(mlxparams, iso(map.tab[index1]), iso(map.tab[index3]));
+		index1 = j * map->dim.length + i;
+		index3 = index1 + map->dim.length;
+		bresenham(mlxparams, translation2(x, y, iso(map->tab[index1])), translation2(x, y, iso(map->tab[index3])));
 		j++;
 	}
 	i = 0;
-	while (i < map.dim.length - 1)
+	while (i < map->dim.length - 1)
 	{
-		index1 = j * map.dim.length + i;
+		index1 = j * map->dim.length + i;
 		index2 = index1 + 1;
-		bresenham(mlxparams, iso(map.tab[index1]), iso(map.tab[index2]));
+		bresenham(mlxparams, translation2(x, y, iso(map->tab[index1])), translation2(x, y, iso(map->tab[index2])));
 		i++;
 	}
 	mlx_put_image_to_window(mlxparams->mlx_ptr, mlxparams->mlx_win, mlxparams->img_ptr, 0, 0);
