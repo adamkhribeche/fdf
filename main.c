@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 19:58:51 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 01:37:57 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/07 04:21:45 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ void	fdf(t_map *map)
 	temp.mlxparams = mlxparams;
 	temp.map = map;
 	homothetie(20, map);
-	translation(10, 10, map);
-	parallel_proj(mlxparams, *map);
+	translation(400, 200, map);
+//	parallel_proj(mlxparams, *map);
+	iso_proj(mlxparams, *map);
 
 	mlx_key_hook(mlxparams->mlx_win, put, (void*)&temp);
 	mlx_loop(mlxparams->mlx_ptr);

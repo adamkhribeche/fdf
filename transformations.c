@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 00:50:25 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/06 21:55:59 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/07 04:21:49 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void     homothetie(int k, t_map *map)
 	}
 }
 
-void	zoom(t_map *map)
+void	zoomin(t_map *map)
 {
 	int taill;
 	int i;
@@ -73,15 +73,15 @@ void	zoom(t_map *map)
 	int yinc;
 
 	taill = map->dim.length * map->dim.width;
-	yinc = 0;
+	yinc = -map->dim.width / 2;
 	i = 0;
-	while (yinc < map->dim.width)
+	while (yinc <= (map->dim.width / 2))
 	{
-		xinc = 0;
-		while (xinc < map->dim.length)
+		xinc = - map->dim.length / 2;
+		while (xinc <= (map->dim.length / 2))
 		{
-			map->tab[i].x = map->tab[i].x + xinc;
-			map->tab[i].y = map->tab[i].y + yinc;
+				map->tab[i].x = map->tab[i].x + xinc;
+				map->tab[i].y = map->tab[i].y + yinc;
 			xinc++;
 			i++;
 		}
@@ -90,6 +90,30 @@ void	zoom(t_map *map)
 
 }
 
+void	zoomout(t_map *map)
+{
+	int taill;
+	int i;
+	int xinc;
+	int yinc;
+
+	taill = map->dim.length * map->dim.width;
+	yinc = -map->dim.width / 2;
+	i = 0;
+	while (yinc <= (map->dim.width / 2))
+	{
+		xinc = - map->dim.length / 2;
+		while (xinc <= (map->dim.length / 2))
+		{
+			map->tab[i].x = map->tab[i].x - xinc;
+			map->tab[i].y = map->tab[i].y - yinc;
+			xinc++;
+			i++;
+		}
+		yinc++;
+	}
+
+}
 t_point	iso(t_point point)
 {
 	t_point		pt;

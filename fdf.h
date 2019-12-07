@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:34:08 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 01:37:46 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/07 04:21:46 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ typedef struct s_temp
 }				t_temp;
 
 int         put(int keycode, void *vartemp);
+void    	zoomin(t_map *map);
+void		zoomout(t_map *map);
 /******************************************************************************/
 
 void			fdf(t_map *map);
