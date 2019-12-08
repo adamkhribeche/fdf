@@ -6,7 +6,7 @@
 #    By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/01 06:06:14 by mzaboub           #+#    #+#              #
-#    Updated: 2019/07/15 16:28:01 by mzaboub          ###   ########.fr        #
+#    Updated: 2019/12/08 23:17:48 by mzaboub          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC_NAME= ft_atoi.c  	ft_bzero.c		ft_charinword.c	ft_isalnum.c	\
 		  ft_strncpy.c	ft_strnequ.c	ft_strnew.c		ft_strnstr.c 	\
 		  ft_strrchr.c	ft_strrev.c		ft_strsplit.c	ft_strstr.c 	\
 		  ft_strsub.c	ft_strtrim.c	ft_tolower.c	ft_toupper.c 	\
-		  get_next_line.c	ft_lstdelone.c 
+		  get_next_line.c	ft_lstdelone.c ft_isspace.c
 SRC= $(addprefix $(SRC_PATH)/, $(SRC_NAME))
 
 

@@ -6,11 +6,15 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:06:30 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/08 08:01:38 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/08 23:09:48 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+/*
+** ---------------------------------------------------------------------------
+*/
 
 void	*ft_memdup(void *mem, size_t size)
 {
@@ -25,6 +29,10 @@ void	*ft_memdup(void *mem, size_t size)
 	return (dup);
 }
 
+/*
+** ---------------------------------------------------------------------------
+*/
+
 t_map	dupmap(t_map map)
 {
 	t_map dup;
@@ -36,17 +44,29 @@ t_map	dupmap(t_map map)
 	return (dup);
 }
 
+/*
+** ---------------------------------------------------------------------------
+*/
+
 void	skip_space(char **s)
 {
 	while (**s && ft_isspace(**s))
 		(*s)++;
 }
 
+/*
+** ---------------------------------------------------------------------------
+*/
+
 void	skip_notspace(char **s)
 {
 	while (**s && !ft_isspace(**s))
 		(*s)++;
 }
+
+/*
+** ---------------------------------------------------------------------------
+*/
 
 int		digitlength(int n)
 {
@@ -58,26 +78,31 @@ int		digitlength(int n)
 	return (i);
 }
 
-void	printmap(t_map map)
-{
-	int index;
-	int count;
-
-	index = 0;
-	while (map.dim.width--)
-	{
-		count = 0;
-		while (count < map.dim.length)
-		{
-			ft_putnbr(map.tab[index].z);
-			ft_putstr("   ");
-			if (digitlength(map.tab[index].z) == 2)
-				ft_putstr(" ");
-			else if (digitlength(map.tab[index].z) == 1)
-				ft_putstr("  ");
-			index++;
-			count++;
-		}
-		ft_putchar('\n');
-	}
-}
+/*
+** ***************************************************************************
+*/
+/*
+** void	printmap(t_map map)
+** {
+**		int index;
+**		int count;
+**
+**		index = 0;
+**		while (map.dim.width--)
+**		{
+**			count = 0;
+**			while (count < map.dim.length)
+**			{
+**				ft_putnbr(map.tab[index].z);
+**				ft_putstr("   ");
+**				if (digitlength(map.tab[index].z) == 2)
+**					ft_putstr(" ");
+**				else if (digitlength(map.tab[index].z) == 1)
+**					ft_putstr("  ");
+**				index++;
+**				count++;
+**			}
+**			ft_putchar('\n');
+**		}
+** }
+*/

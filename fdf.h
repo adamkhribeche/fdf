@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:34:08 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/08 21:32:59 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/09 00:57:44 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,40 @@ void			ft_get_params_to_center_isoproject(int *x, int *y, t_map *map);
 void			ft_get_params_to_center_parallelproject(int *x, int *y, \
 		t_map *map);
 
+/*
+** in file : bresenham draw function
+*/
+
+void			initialize_draw_vars(t_draw_vars *var, t_point p1, \
+														t_point p2);
+void			draw_in_octant2367(t_mlxparams *mlxparams, t_point p1, \
+															t_point p2);
+void			draw_in_octant1458(t_mlxparams *mlxparams, t_point p1, \
+															t_point p2);
+void			draw_horizontal_line(t_mlxparams *mlxparams, t_point pt1, \
+																t_point pt2);
+
+/*
+**  in file : bresenham help function
+*/
+
+t_point			swap_coordinats(t_point point);
+int				is_horizontal(int dx, int dy);
+int				is_vertical(int dx, int dy);
+int				is_diagonal(int dx, int dy);
+void			swap(int *a, int *b);
+
+/*
+** in file : tools 2
+*/
+
+int				abs(int a);
+void			zoomout(t_map *map);
+void			zoomin(t_map *map);
+int				min(int a, int b, int c, int d);
+int				max(int a, int b, int c, int d);
+
+int				ft_exit(void *hook);
 /*
 ** t_point			homothetie(int k, t_point point);
 ** t_point			translation(t_point vect, t_point point);

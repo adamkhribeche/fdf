@@ -6,64 +6,14 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 19:58:51 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/08 20:52:01 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/09 00:57:42 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 /*
-** ---------------------------------------------------------------------------
-*/
-
-int		max(int a, int b, int c, int d)
-{
-	int tab[4];
-	int i;
-	int max;
-
-	tab[0] = a;
-	tab[1] = b;
-	tab[2] = c;
-	tab[3] = d;
-	i = 1;
-	max = a;
-	while (i < 4)
-	{
-		if (tab[i] > max)
-			max = tab[i];
-		i++;
-	}
-	return (max);
-}
-
-/*
-** ---------------------------------------------------------------------------
-*/
-
-int		min(int a, int b, int c, int d)
-{
-	int tab[4];
-	int i;
-	int min;
-
-	tab[0] = a;
-	tab[1] = b;
-	tab[2] = c;
-	tab[3] = d;
-	i = 1;
-	min = a;
-	while (i < 4)
-	{
-		if (tab[i] < min)
-			min = tab[i];
-		i++;
-	}
-	return (min);
-}
-
-/*
-** ---------------------------------------------------------------------------
+** ----------------------------------------------------------------------------
 */
 
 void	get_params_to_center_isoproject(int *x, int *y, t_map *map)
@@ -84,7 +34,7 @@ void	get_params_to_center_isoproject(int *x, int *y, t_map *map)
 }
 
 /*
-** ---------------------------------------------------------------------------
+** ----------------------------------------------------------------------------
 */
 
 void	get_params_to_center_parallelproject(int *x, int *y, t_map *map)
@@ -105,7 +55,7 @@ void	get_params_to_center_parallelproject(int *x, int *y, t_map *map)
 }
 
 /*
-** ---------------------------------------------------------------------------
+** ----------------------------------------------------------------------------
 */
 
 void	ft_apply_homothetie(t_map *map, t_mlxparams *mlxparams)
@@ -119,7 +69,7 @@ void	ft_apply_homothetie(t_map *map, t_mlxparams *mlxparams)
 }
 
 /*
-** ---------------------------------------------------------------------------
+** ----------------------------------------------------------------------------
 */
 
 void	fdf(t_map *map)
@@ -145,11 +95,12 @@ void	fdf(t_map *map)
 	hook_variables.map = map;
 	iso_proj(&hook_variables, pt);
 	mlx_key_hook(mlxparams->mlx_win, put, (void*)&hook_variables);
+	mlx_hook(mlxparams->mlx_win, 17, 0, ft_exit, (void*)&hook_variables);
 	mlx_loop(mlxparams->mlx_ptr);
 }
 
 /*
-** ---------------------------------------------------------------------------
+** ----------------------------------------------------------------------------
 */
 
 int		main(int ac, char **av)

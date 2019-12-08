@@ -6,14 +6,14 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 00:14:10 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/08 20:11:06 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/09 00:57:21 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
 /*
-** ***************************************************************************
+** ****************************************************************************
 */
 
 void	ft_change_z(t_hook *temp, t_map *map, int k)
@@ -45,7 +45,7 @@ void	ft_change_z(t_hook *temp, t_map *map, int k)
 }
 
 /*
-** ***************************************************************************
+** ****************************************************************************
 */
 
 void	ft_draw(t_hook *temp, int nbr)
@@ -62,12 +62,30 @@ void	ft_draw(t_hook *temp, int nbr)
 	func[nbr](temp, pt);
 }
 
+
+/*
+** ****************************************************************************
+*/
+
+int		ft_exit(void	*hook)
+{
+	t_hook	*hk;
+
+	hk = (t_hook*)hook;
+	mlx_destroy_image(hk->mlxparams->mlx_ptr, hk->mlxparams->mlx_win);
+	exit(0);
+}
+
+/*
+** ****************************************************************************
+*/
+
 int		put(int keycode, void *hook)
 {
 	static int			nbr;
 
 	if (keycode == 53)
-		exit(0);
+		ft_exit(hook);
 	else if (keycode == 69)
 		zoomin(((t_hook*)hook)->map);
 	else if (keycode == 78)
@@ -86,10 +104,12 @@ int		put(int keycode, void *hook)
 		ft_change_z(((t_hook*)hook), ((t_hook*)hook)->map, +5);
 	else if (keycode == 5)
 		ft_change_z(((t_hook*)hook), ((t_hook*)hook)->map, -5);
+	else
+		return (0);
 	ft_draw(((t_hook*)hook), nbr);
 	return (0);
 }
 
 /*
-** ***************************************************************************
+** ****************************************************************************
 */

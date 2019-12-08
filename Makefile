@@ -1,9 +1,10 @@
 NAME= fdf
 
 SRC_PATH= .
-SRC_NAME= bresenham.c	check_file.c	checkdata_storeit.c	draw_map.c	\
-		  freemap.c		hooks_functions.c	main.c		\
-	  	  mlxinit.c		tools.c		transformations.c 
+SRC_NAME= bresenham.c	check_file.c		checkdata_storeit.c	draw_map.c	\
+		  freemap.c		hooks_functions.c	main.c	mlxinit.c		tools.c	\
+		  transformations.c bresenham_draw_functions.c	bresenham_help_func.c \
+		  tools2.c
 SRC= $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
 OBJ_PATH= obj
@@ -21,9 +22,9 @@ LIB= libft.a
 CC= gcc
 CFLAGES= -Wall -Wextra -Werror
 
-LD_FLAGS= -L$(LIB_PATH) ../minilibx/ -lmlx -framework OpenGL -framework AppKit ## had str baqi mam2kdch mno hadchi iqdr maykon s7i7
+LD_FLAGS= -L$(LIB_PATH) -lmlx -framework OpenGL -framework AppKit 
 LD_LIBS= -l$(patsubst lib%.a,%, $(LIB))
-HDR_FLAGS= -I . ../minilibx  ## wach had nit l path s7i7 ???
+HDR_FLAGS= -I. 
 
 all:$(NAME)
 
