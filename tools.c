@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   touls.c                                            :+:      :+:    :+:   */
+/*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 14:06:30 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 17:27:28 by nkhribec         ###   ########.fr       */
+/*   Updated: 2019/12/08 08:01:38 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ t_map	dupmap(t_map map)
 {
 	t_map dup;
 
-	dup.tab = ft_memdup(map.tab, sizeof(*map.tab) * map.dim.length * map.dim.width);
+	dup.tab = ft_memdup(map.tab, sizeof(*map.tab) * map.dim.length * \
+			map.dim.width);
 	dup.dim.length = map.dim.length;
 	dup.dim.width = map.dim.width;
 	return (dup);
@@ -60,8 +61,6 @@ int		digitlength(int n)
 void	printmap(t_map map)
 {
 	int index;
-//	int i;
-//	int j;
 	int count;
 
 	index = 0;
@@ -70,12 +69,11 @@ void	printmap(t_map map)
 		count = 0;
 		while (count < map.dim.length)
 		{
-			ft_putnbr(map.tab[index].y);
+			ft_putnbr(map.tab[index].z);
 			ft_putstr("   ");
-			if (digitlength(map.tab[index].y) == 2)
-				//ft_putchar(' ');
+			if (digitlength(map.tab[index].z) == 2)
 				ft_putstr(" ");
-			else if (digitlength(map.tab[index].y) == 1)
+			else if (digitlength(map.tab[index].z) == 1)
 				ft_putstr("  ");
 			index++;
 			count++;

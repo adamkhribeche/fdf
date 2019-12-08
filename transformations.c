@@ -6,22 +6,31 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 00:50:25 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/07 23:42:09 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/08 08:00:24 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point     translation2(int x, int y, t_point point)
+/*
+** ***************************************************************************
+*/
+
+t_point	translation2(int x, int y, t_point point)
 {
 	t_point pt;
 
 	pt.x = point.x + x;
 	pt.y = point.y + y;
+	pt.z = point.z;
 	return (pt);
 }
 
-void     translation(int xt, int yt, t_map *map)
+/*
+** ***************************************************************************
+*/
+
+void	translation(int xt, int yt, t_map *map)
 {
 	int taill;
 	int i;
@@ -36,18 +45,27 @@ void     translation(int xt, int yt, t_map *map)
 	}
 }
 
-/*t_point     homothetie(int k, t_point point)
-{
-	t_point     pt;
+/*
+** ***************************************************************************
+*/
 
-	pt.x = point.x * k;
-	pt.y = point.y * k;
-	pt.z = point.z * k;
-	pt.color = point.color;
-	return (pt);
-}*/
+/*
+** t_point     homothetie(int k, t_point point)
+** {
+** 	t_point     pt;
+** 	pt.x = point.x * k;
+** 	pt.y = point.y * k;
+** 	pt.z = point.z * k;
+** 	pt.color = point.color;
+** 	return (pt);
+** }
+*/
 
-void     homothetie(int k, t_map *map)
+/*
+** ***************************************************************************
+*/
+
+void	homothetie(int k, t_map *map)
 {
 	int taill;
 	int i;
@@ -63,45 +81,60 @@ void     homothetie(int k, t_map *map)
 	}
 }
 
+/*
+** ***************************************************************************
+*/
+
 void	zoomin(t_map *map)
 {
-	int taill;
 	int i;
 	int xinc;
 	int yinc;
+	int	maxx;
+	int	maxy;
 
-	taill = map->dim.length * map->dim.width;
 	yinc = -map->dim.width / 2;
+	(map->dim.length % 2 == 1) ? (maxx = (map->dim.length / 2 + 1)) : \
+						(maxx = map->dim.length / 2);
+	(map->dim.width % 2 == 1) ? (maxy = (map->dim.width / 2 + 1)) : \
+						(maxy = map->dim.width / 2);
 	i = 0;
-	while (yinc <= (map->dim.width / 2))
+	while (yinc < maxy)
 	{
-		xinc = - map->dim.length / 2;
-		while (xinc <= (map->dim.length / 2))
+		xinc = -map->dim.length / 2;
+		while (xinc < maxx)
 		{
-				map->tab[i].x = map->tab[i].x + xinc;
-				map->tab[i].y = map->tab[i].y + yinc;
+			map->tab[i].x = map->tab[i].x + xinc;
+			map->tab[i].y = map->tab[i].y + yinc;
 			xinc++;
 			i++;
 		}
 		yinc++;
 	}
-
 }
+
+/*
+** ***************************************************************************
+*/
 
 void	zoomout(t_map *map)
 {
-	int taill;
 	int i;
 	int xinc;
 	int yinc;
+	int	maxx;
+	int	maxy;
 
-	taill = map->dim.length * map->dim.width;
+	(map->dim.length % 2 == 1) ? (maxx = (map->dim.length / 2 + 1)) : \
+												(maxx = map->dim.length / 2);
+	(map->dim.width % 2 == 1) ? (maxy = (map->dim.width / 2 + 1)) : \
+												(maxy = map->dim.width / 2);
 	yinc = -map->dim.width / 2;
 	i = 0;
-	while (yinc <= (map->dim.width / 2))
+	while (yinc < maxy)
 	{
-		xinc = - map->dim.length / 2;
-		while (xinc <= (map->dim.length / 2))
+		xinc = -map->dim.length / 2;
+		while (xinc < maxx)
 		{
 			map->tab[i].x = map->tab[i].x - xinc;
 			map->tab[i].y = map->tab[i].y - yinc;
@@ -110,8 +143,12 @@ void	zoomout(t_map *map)
 		}
 		yinc++;
 	}
-
 }
+
+/*
+** ***************************************************************************
+*/
+
 t_point	iso(t_point point)
 {
 	t_point		pt;
@@ -119,45 +156,47 @@ t_point	iso(t_point point)
 	pt.x = (point.x - point.y) * cos(0.523599);
 	pt.y = -point.z + (point.x + point.y) * sin(0.523599);
 	pt.z = point.z;
-	pt.color = point.color;
 	return (pt);
 }
 
-/*void	iso(t_map *map, t_isomap *isomap)
-{
-	int taill;
-	int i;
-
-	taill = map->dim.length * map->dim.width;
-	//ft_memdel(&(void*)isomap);
-	isomap = (t_isomap*)malloc(sizeof(*isomap));
-	isomap->tab = (t_isopt*)malloc(sizeof(t_isopt) * taill);
-	i = 0;
-	while (i < taill)
-	{
-		isomap->tab[i].x = (map->tab[i].x - map->tab[i].y) * cos(0.523599);
-		isomap->tab[i].y = -map->tab[i].z + (map->tab[i].x + map->tab[i].y) * sin(0.523599);
-		isomap->tab[i].color = map->tab[i].color;
-		i++;
-	}
-}
+/*
+** ***************************************************************************
 */
 
-/*t_point     xrotation(t_point origin, angle, t_point point)
-{
-	t_point     pt;
-
-	pt.x =;
-}
-t_point     yrotation(t_point origin, angle, t_point point)
-{
-	t_point     pt;
-
-	pt.x =;
-}
-t_point     zrotation(t_point origin, angle, t_point point)
-{
-	t_point     pt;
-
-	pt.x =;
-}*/
+/*
+** void	iso(t_map *map, t_isomap *isomap)
+** {
+** 	int taill;
+** 	int i;
+** 	taill = map->dim.length * map->dim.width;
+** 	//ft_memdel(&(void*)isomap);
+** 	isomap = (t_isomap*)malloc(sizeof(*isomap));
+**  	isomap->tab = (t_isopt*)malloc(sizeof(t_isopt) * taill);
+** 	i = 0;
+** 	while (i < taill)
+** 	{
+** 		isomap->tab[i].x = (map->tab[i].x - map->tab[i].y) * cos(0.523599);
+** 		isomap->tab[i].y = -map->tab[i].z + (map->tab[i].x + map->tab[i].y) * \
+**				sin(0.523599);
+** 		isomap->tab[i].color = map->tab[i].color;
+** 		i++;
+** 	}
+** }
+** t_point     xrotation(t_point origin, angle, t_point point)
+** {
+** 	t_point     pt;
+**
+** 	pt.x =;
+** }
+** t_point     yrotation(t_point origin, angle, t_point point)
+** {
+** 	t_point     pt;
+**
+** 	pt.x =;
+** }
+** t_point     zrotation(t_point origin, angle, t_point point)
+** {
+** 	t_point     pt;
+** 	pt.x =;
+** }
+*/
