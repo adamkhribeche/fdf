@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:34:08 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/08 09:32:10 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/08 21:32:59 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <stdio.h>
-# include "libft/libft.h"
+//# include "libft/libft.h"
+# include "libft.h"
 # include <fcntl.h>
-//# include "get_next_line.h"
+# include "get_next_line.h"
 # define LEN 2500
 # define WID 1500
 # define COLOR 0X00FFFFFF
@@ -88,6 +89,18 @@ typedef struct	s_mlxxparams
 ** ***************************************************************************
 */
 
+typedef	struct	s_draw_vars
+{
+	int	edx;
+	int	pdx;
+	int	dx;
+	int	dy;
+	int	incrx;
+	int	incry;
+	int	i;
+	int	index;
+}				t_draw_vars;
+
 /*
 **  typedef struct	s_drowparams
 **  {
@@ -154,8 +167,9 @@ void			swap(int *a, int *b);
 t_point			swap_coordinats(t_point point);
 void			translation(int x, int y, t_map *map);
 t_point			translation2(int x, int y, t_point point);
-void			parallel_proj(t_mlxparams *mlxparams, t_map *map, int x, int y);
-void			iso_proj(t_mlxparams *mlxparams, t_map *map, int x, int y);
+void			parallel_proj(t_hook *vars, t_point pt);
+void			iso_proj(t_hook *vars, t_point pt);
+
 void			homothetie(int k, t_map *map);
 t_point			iso(t_point point);
 void			fill_mlxparams(t_mlxparams *mlxparams);

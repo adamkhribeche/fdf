@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 19:58:51 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/08 09:03:44 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/08 20:52:01 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void	ft_apply_homothetie(t_map *map, t_mlxparams *mlxparams)
 {
 	int	k;
 
+	k = 0;
 	while (k * map->dim.width < mlxparams->width_img && k < 20)
 		k++;
 	homothetie(k, map);
@@ -125,6 +126,7 @@ void	fdf(t_map *map)
 {
 	t_mlxparams	*mlxparams;
 	t_hook		hook_variables;
+	t_point		pt;
 
 	if (!(mlxparams = malloc(sizeof(*mlxparams))))
 	{
@@ -134,13 +136,14 @@ void	fdf(t_map *map)
 	fill_mlxparams(mlxparams);
 	ft_apply_homothetie(map, mlxparams);
 	get_params_to_center_isoproject(&hook_variables.proj_params[0].x, \
-			&hook_variables.proj_params[0].y, map);
+									&hook_variables.proj_params[0].y, map);
 	get_params_to_center_parallelproject(&hook_variables.proj_params[1].x, \
-			&hook_variables.proj_params[1].y, map);
-	iso_proj(mlxparams, map, hook_variables.proj_params[0].x, \
-			hook_variables.proj_params[0].y);
+									&hook_variables.proj_params[1].y, map);
+	pt.x = hook_variables.proj_params[0].x;
+	pt.y = hook_variables.proj_params[0].y;
 	hook_variables.mlxparams = mlxparams;
 	hook_variables.map = map;
+	iso_proj(&hook_variables, pt);
 	mlx_key_hook(mlxparams->mlx_win, put, (void*)&hook_variables);
 	mlx_loop(mlxparams->mlx_ptr);
 }

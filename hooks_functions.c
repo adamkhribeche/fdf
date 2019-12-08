@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 00:14:10 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/08 08:44:38 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/08 20:11:06 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,16 @@ void	ft_change_z(t_hook *temp, t_map *map, int k)
 
 void	ft_draw(t_hook *temp, int nbr)
 {
-	void	(*func[2])(t_mlxparams *mlxparams, t_map *map, int x, int y);
+	void	(*func[2])(t_hook *temp, t_point pt);
+	t_point	pt;
 
+	pt.x = temp->proj_params[nbr].x;
+	pt.y = temp->proj_params[nbr].y;
 	func[0] = iso_proj;
 	func[1] = parallel_proj;
 	ft_memset(temp->mlxparams->image, 0x0000, \
 			temp->mlxparams->length_img * temp->mlxparams->width_img * 4);
-	func[nbr](temp->mlxparams, temp->map, temp->proj_params[nbr].x, \
-			temp->proj_params[nbr].y);
+	func[nbr](temp, pt);
 }
 
 int		put(int keycode, void *hook)
