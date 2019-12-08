@@ -2,8 +2,8 @@ NAME= fdf
 
 SRC_PATH= .
 SRC_NAME= bresenham.c	check_file.c	checkdata_storeit.c	draw_map.c	\
-		  freemap.c		get_next_line.c	hooks_functions.c	libft.h		\
-		  main.c		mlxinit.c		tools.c		transformations.c
+		  freemap.c		hooks_functions.c	main.c		\
+	  	  mlxinit.c		tools.c		transformations.c 
 SRC= $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
 OBJ_PATH= obj
@@ -21,33 +21,32 @@ LIB= libft.a
 CC= gcc
 CFLAGES= -Wall -Wextra -Werror
 
-LD_FLAGS= -L$(LIB_PATH)
+LD_FLAGS= -L$(LIB_PATH) ../minilibx/ -lmlx -framework OpenGL -framework AppKit ## had str baqi mam2kdch mno hadchi iqdr maykon s7i7
 LD_LIBS= -l$(patsubst lib%.a,%, $(LIB))
-HDR_FLAGS= -I.
-
+HDR_FLAGS= -I . ../minilibx  ## wach had nit l path s7i7 ???
 
 all:$(NAME)
 
 $(NAME): $(LIB_PATH)/$(LIB) $(OBJ)
-@$(CC) $(LD_FLAGS) $(LD_LIBS) $(OBJ) -o $@
-@echo "FDF: executable file is ready ;)" 	########## modify this
+	@$(CC) $(LD_FLAGS) $(LD_LIBS) $(OBJ) -o $@
+	@echo "FDF: executable file is ready ;)" 	########## modify this
 
 $(LIB_PATH)/$(LIB):
-@make -C libft
+	@make -C libft
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-@mkdir $(OBJ_PATH) 2> /dev/null || true
-@$(CC) $(CFLAGS) $(HDR_FLAGS) -o $@ -c $<
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@$(CC) $(CFLAGS) $(HDR_FLAGS) -o $@ -c $<
 
 clean:
-@rm -fr $(OBJ)
-@rmdir $(OBJ_PATH) 2> /dev/null || true
-@make -C libft clean
-@echo "FDF: object files deleted" 			########## modify this
+	@rm -fr $(OBJ)
+	@rmdir $(OBJ_PATH) 2> /dev/null || true
+	@make -C libft clean
+	@echo "FDF: object files deleted" 			########## modify this
 
 fclean: clean
-@rm -fr $(NAME)
-@make -C libft fclean
-@echo "FDF: all resources deleted" 			########## modify this
+	@rm -fr $(NAME)
+	@make -C libft fclean
+	@echo "FDF: all resources deleted" 			########## modify this
 
 re: fclean all

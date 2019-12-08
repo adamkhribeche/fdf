@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:34:08 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/08 09:09:14 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/08 09:32:10 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include <stdlib.h>
 # include <errno.h>
 # include <stdio.h>
-# include "libft.h"
+# include "libft/libft.h"
 # include <fcntl.h>
-# include "get_next_line.h"
+//# include "get_next_line.h"
 # define LEN 2500
 # define WID 1500
 # define COLOR 0X00FFFFFF
