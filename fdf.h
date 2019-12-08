@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:34:08 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/08 09:03:19 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/08 09:09:14 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,9 @@ int				put(int keycode, void *vartemp);
 void			zoomin(t_map *map);
 void			zoomout(t_map *map);
 void			zoom(t_map *map);
+void			get_params_to_center_isoproject(int *x, int *y, t_map *map);
+void			get_params_to_center_parallelproject(int *x, int *y, \
+		t_map *map);
 
 /*
 ** ***************************************************************************
