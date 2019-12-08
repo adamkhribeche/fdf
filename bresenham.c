@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 22:10:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/08 07:53:20 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/08 08:56:11 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,15 @@ void	draw_diagonal_line(t_mlxparams *mlxparams, t_point pt1, t_point pt2)
 	}
 }
 
+int		is_out_win(t_point p1, t_point p2)
+{
+	if ((p1.x > LEN && p2.x > LEN) || (p1.x < 0 && p2.x < 0))
+		return (TRUE);
+	if ((p1.y > WID && p2.y > WID) || (p1.y < 0 && p2.y < 0))
+		return (TRUE);
+	return (FALSE);
+}
+
 void    bresenham(t_mlxparams *mlxparams, t_point pt1, t_point pt2)
 {
 	int     dx;
@@ -221,6 +230,8 @@ void    bresenham(t_mlxparams *mlxparams, t_point pt1, t_point pt2)
 	draw_trivial_line[2] = draw_diagonal_line;
 	dx = pt2.x - pt1.x;
 	dy = pt2.y - pt1.y;
+	if (is_out_win(pt1, pt2) == TRUE)
+		return ;
 	if (dx == 0 && dy == 0)
 	{
 		index = mlxparams->length_img * pt1.y + pt1.x;

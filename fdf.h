@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:34:08 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/08 08:40:27 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/08 08:55:41 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define LEN 2500
 # define WID 1500
 # define COLOR 0X00FFFFFF
+# define TRUE 1
+# define FALSE 0
 
 typedef struct	s_mapdim
 {
