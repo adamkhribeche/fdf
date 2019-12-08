@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 19:58:51 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/08 08:41:01 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/08 09:03:44 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ void	ft_apply_homothetie(t_map *map, t_mlxparams *mlxparams)
 
 void	fdf(t_map *map)
 {
-	t_mlxparams			*mlxparams;
-	t_hook	hook_variables;
+	t_mlxparams	*mlxparams;
+	t_hook		hook_variables;
 
 	if (!(mlxparams = malloc(sizeof(*mlxparams))))
 	{

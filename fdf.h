@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 16:34:08 by nkhribec          #+#    #+#             */
-/*   Updated: 2019/12/08 08:55:41 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/08 09:03:19 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct	s_point
 	int		x;
 	int		y;
 	int		z;
-//	int		color;
 	int		v;
 }				t_point;
 
