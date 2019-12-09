@@ -6,7 +6,7 @@
 /*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 00:14:10 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/09 00:57:21 by mzaboub          ###   ########.fr       */
+/*   Updated: 2019/12/09 01:51:42 by mzaboub          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,11 @@ void	ft_draw(t_hook *temp, int nbr)
 	func[nbr](temp, pt);
 }
 
-
 /*
 ** ****************************************************************************
 */
 
-int		ft_exit(void	*hook)
+int		ft_exit(void *hook)
 {
 	t_hook	*hk;
 
@@ -82,7 +81,7 @@ int		ft_exit(void	*hook)
 
 int		put(int keycode, void *hook)
 {
-	static int			nbr;
+	static int	nbr;
 
 	if (keycode == 53)
 		ft_exit(hook);
@@ -90,14 +89,10 @@ int		put(int keycode, void *hook)
 		zoomin(((t_hook*)hook)->map);
 	else if (keycode == 78)
 		zoomout(((t_hook*)hook)->map);
-	else if (keycode == 123)
-		((t_hook*)hook)->proj_params[nbr].x -= 10;
-	else if (keycode == 124)
-		((t_hook*)hook)->proj_params[nbr].x += 10;
-	else if (keycode == 125)
-		((t_hook*)hook)->proj_params[nbr].y += 10;
-	else if (keycode == 126)
-		((t_hook*)hook)->proj_params[nbr].y -= 10;
+	else if (keycode == 123 || keycode == 124)
+		((t_hook*)hook)->proj_params[nbr].x += (keycode == 123) ? -10 : 10;
+	else if (keycode == 125 || keycode == 126)
+		((t_hook*)hook)->proj_params[nbr].y += (keycode == 125) ? 10 : -10;
 	else if (keycode == 35)
 		nbr = (nbr + 1) % 2;
 	else if (keycode == 4)
